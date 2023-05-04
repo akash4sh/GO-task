@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:latest
+    volumes:
+      - "./db_data:/var/lib/mysql"
+    restart: "always"
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=akash
+      - MYSQL_DATABASE=data
+    ports:
+      - "3307:3306"
+    networks:
+      - intranet
+
+  restapi:
+    container_name: restapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DB_HOST=tcp(mysql:3306)
+      - DB_USERNAME=root
+      - DB_PASSWORD=akash
+      - DB_NAME=data
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    networks:
+      - intranet
+networks:
+  intranet:
+

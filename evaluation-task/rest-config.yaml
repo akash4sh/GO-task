@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  DB_HOST: tcp(10.98.64.23:3306)
+  DB_USERNAME: root
+  DB_PASSWORD: akash
+  DB_NAME: data
